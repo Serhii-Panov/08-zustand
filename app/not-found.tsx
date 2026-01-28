@@ -1,3 +1,24 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title:"404 not found",
+  description:"The page you are looking for was not found",
+openGraph: {
+    title:"404 not found",
+    description:"The page you are looking for was not found",
+    url:"https://notehub.com/app/not-found",
+    images:[
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Notehub logo"
+      }
+      ],
+      type: 'article'
+  }
+}
+
 const NotFound = () => {
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
