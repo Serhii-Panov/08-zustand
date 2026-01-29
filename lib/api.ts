@@ -9,7 +9,7 @@ export interface FetchNotesParams {
     sortBy?: "created" | "updated"
     categoryId?: string
 }
-interface CreateNoteParams {
+export interface CreateNoteParams {
     title: string,
     content: string,
     tag: "Work" | "Personal" | "Meeting" | "Shopping" | "Todo"

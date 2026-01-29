@@ -11,6 +11,7 @@ import Pagination from "@/components/Pagination/Pagination";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import SearchBox from "@/components/SearchBox/SearchBox";
+import Link from "next/link";
 
 type Props = {
   params: string | undefined;
@@ -65,9 +66,9 @@ const NotesClient = ({params}:Props) => {
           />
         )}
         {
-          <button className={css.button} onClick={openModal}>
+          <Link href='/notes/action/create' className={css.button}>
             Create note +
-          </button>
+          </Link>
         }
       </header>
       {data?.notes && data.notes.length > 0 && <NoteList notes={data.notes} />}
@@ -76,7 +77,7 @@ const NotesClient = ({params}:Props) => {
       )}
       {modalOpen && (
         <Modal onClose={closeModal}>
-          <NoteForm onClose={closeModal} />
+          <NoteForm />
         </Modal>
       )}
       <Toaster position="top-right" reverseOrder={false} />
