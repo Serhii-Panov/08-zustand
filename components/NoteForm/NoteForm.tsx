@@ -30,6 +30,7 @@ export default function NoteForm() {
     onSuccess: (data: Note) => {
       clearDraft();
       router.push("/notes/filter/all");
+      queryClient.invalidateQueries({ queryKey: ["notes"], exact: false })
     },
     onError: (error) => {
       console.error("Error creating note:", error);
@@ -46,11 +47,6 @@ export default function NoteForm() {
       | "Todo";
     mutate(
       { title, content, tag },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["notes"] });
-        },
-      },
     );
   };
   return (
@@ -76,6 +72,7 @@ export default function NoteForm() {
           className={css.textarea}
           defaultValue={draft?.content}
           onChange={handleChange}
+          required
         />
       </div>
 
@@ -85,8 +82,9 @@ export default function NoteForm() {
           id={`${fieldId}-tag`}
           name="tag"
           className={css.select}
-          defaultValue={draft?.title}
+          defaultValue={draft?.tag}
           onChange={handleChange}
+          required
         >
           <option value="Todo">Todo</option>
           <option value="Work">Work</option>

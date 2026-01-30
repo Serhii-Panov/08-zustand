@@ -8,7 +8,6 @@ import { Toaster } from "react-hot-toast";
 import { useDebouncedCallback } from "use-debounce";
 import type { FetchNotesParams } from "@/lib/api";
 import Pagination from "@/components/Pagination/Pagination";
-import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Link from "next/link";
@@ -45,11 +44,8 @@ const NotesClient = ({params}:Props) => {
     queryKey: ["notes", currentQuery],
     queryFn: () => fetchNotes(currentQuery),
     placeholderData: keepPreviousData,
-    refetchOnMount: false,
+    refetchOnMount: true,
   });
-  const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
 
   return (
     <div className={css.app}>
@@ -74,11 +70,6 @@ const NotesClient = ({params}:Props) => {
       {data?.notes && data.notes.length > 0 && <NoteList notes={data.notes} />}
       {data?.notes && data.notes.length === 0 && (
         <p>No notes found. Try creating one!</p>
-      )}
-      {modalOpen && (
-        <Modal onClose={closeModal}>
-          <NoteForm />
-        </Modal>
       )}
       <Toaster position="top-right" reverseOrder={false} />
     </div>

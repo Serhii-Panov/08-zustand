@@ -7,6 +7,31 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import NotesClient from "./Notes.client";
+import { Metadata } from "next";
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const tag = slug[0] === "all" ? undefined : slug[0];
+  return {
+    title: tag,
+    description: `notes by filter: ${tag}`,
+    openGraph: {
+    title: tag,
+    description: `notes by filter: ${tag}`,
+    url:`https://notehub.com/app/notes/filter/${tag}`,
+    images:[
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Notehub logo"
+      }
+      ],
+      type: 'article'
+  }
+  };
+}
+
 
 type Props = {
   params: Promise<{slug: string[]}>;
